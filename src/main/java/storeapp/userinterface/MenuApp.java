@@ -135,6 +135,14 @@ public class MenuApp {
     }
 
 
+    public void showMenuProducts(){
+
+
+
+
+    }
+
+
     public void customerMenuAdmin(){
 
         System.out.println("Menu Cliente");
