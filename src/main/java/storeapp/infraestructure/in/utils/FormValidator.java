@@ -1,10 +1,11 @@
-package storeapp.utils;
+package storeapp.infraestructure.in.utils;
 
 import storeapp.domain.Customer;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class CustomerFormValidation {
+public class FormValidator {
 
     static Scanner sc = new Scanner(System.in);
 
@@ -37,7 +38,7 @@ public class CustomerFormValidation {
                 sc.nextLine();
                 return value;
 
-            }catch (Exception e){
+            }catch (InputMismatchException e){
                 System.out.println("Error al ingresar el valor, este debe ser un numero entero");
                 sc.nextLine();
             }
@@ -54,7 +55,7 @@ public class CustomerFormValidation {
                 sc.nextLine();
                 return value;
 
-            }catch (Exception e){
+            }catch (InputMismatchException e){
                 System.out.println("Error al ingresar el valor, este debe ser un numero decimal");
                 sc.nextLine();
             }
@@ -71,7 +72,7 @@ public class CustomerFormValidation {
                 sc.nextLine();
                 return value;
 
-            }catch (Exception e){
+            }catch (InputMismatchException e){
                 System.out.println("Error al ingresar el valor, este debe ser un booleano (true/false)");
                 sc.nextLine();
             }
@@ -81,17 +82,13 @@ public class CustomerFormValidation {
     public static String validateString(String prompt) {
 
         while(true){
-            try{
 
                 System.out.println(prompt);
-                String value = sc.nextLine();
-                sc.nextLine();
-                return value;
-
-            }catch (Exception e){
-                System.out.println("Error al ingresar el valor, este debe ser carácteres");
-                sc.nextLine();
-            }
+                String value = sc.nextLine().trim();
+                if(!value.isEmpty()){
+                    return value;
+                }
+                System.out.println("El valor no puede estar vacío");
         }
     }
 

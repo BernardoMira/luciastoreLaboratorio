@@ -1,13 +1,14 @@
-package storeapp.repository;
+package storeapp.infraestructure.out.adapters;
 
 import storeapp.domain.Customer;
+import storeapp.services.port.CustomerPersistencePort;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class CustomerRepository {
+public class CustomerRepository implements CustomerPersistencePort {
 
     List<Customer> customers = new ArrayList<>(Arrays.asList(
             new Customer(  1, "John", "Doe", "jd@mail.com" , "1234567890", true , 1000000.00 , "NUEVO" ),
@@ -55,13 +56,22 @@ public class CustomerRepository {
 
     }
 
-    public void updateCustomer(){
+    public Customer updateCustomer(int id, Customer customer){
+
+        for(Customer customer1: customers){
+
+            if(id == customer.getId()){
+                return customer1;
+            }
+
+        }
+        return null;
 
     }
 
 
 
-    public void deleteCustomer(){
+    public void deleteCustomer(int id){
 
     }
 

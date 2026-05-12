@@ -1,4 +1,4 @@
-package storeapp.repository;
+package storeapp.infraestructure.out.adapters;
 
 import storeapp.domain.Category;
 import storeapp.domain.Product;
@@ -12,7 +12,8 @@ public class ProductRepository {
 
     List<Product> products = new ArrayList<>(
             Arrays.asList(
-                    new Product(1, "Laptop", 999.99,50,true, new Category(1, "Electronics", true))
+                    new Product("Laptop", 999.99,50,true, new Category("Electronics", "Disponible")),
+                    new Product("Laptop", 999.99,50,true, new Category("Electronics", "Disponible"))
 
             )
     );

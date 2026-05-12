@@ -2,16 +2,20 @@ package storeapp.services;
 
 import storeapp.domain.Admin;
 import storeapp.domain.Customer;
-import storeapp.repository.CustomerRepository;
+import storeapp.infraestructure.out.adapters.CustomerRepository;
+import storeapp.infraestructure.out.adapters.CustomerRepositoryDB;
+import storeapp.services.input.AdminService;
+import storeapp.services.input.CustumerAdminService;
+import storeapp.services.port.CustomerPersistencePort;
 
 import java.util.List;
 import java.util.Optional;
 
-public class AdminServiceImpl  implements AdminService , CustumerAdminService {
+public class AdminServiceImpl  implements AdminService, CustumerAdminService {
 
-    private final CustomerRepository customerRepository;
+    private final CustomerPersistencePort customerRepository;
 
-    public AdminServiceImpl(Admin admin, CustomerRepository customerRepository) {
+    public AdminServiceImpl(Admin admin, CustomerPersistencePort customerRepository) {
         this.customerRepository = customerRepository;
     }
 
@@ -53,6 +57,8 @@ public class AdminServiceImpl  implements AdminService , CustumerAdminService {
 
     @Override
     public void deleteCustomer(int id) {
+
+        customerRepository.deleteCustomer(id);
 
     }
 }

@@ -1,16 +1,15 @@
 package storeapp.services;
 
-import storeapp.utils.ProductState;
+import storeapp.domain.enums.ProductState;
+import storeapp.infraestructure.in.utils.FormValidator;
 
-import java.util.Scanner;
+public class ProductStateSelector {
 
-public class StateSelector {
-    Scanner  sc = new Scanner(System.in);
-    public  boolean ProductState(){
+    public static boolean ProductState(){
 
         System.out.println("Selecione el estado del producto: ");
         System.out.println("1. Disponible 2. Sin Stock 3. Descontinuado");
-        int option = sc.nextInt();
+        int option = FormValidator.validateInt("Seleccione una opcion: ");
         if (option == 1){
             System.out.println("Estado:" + ProductState.AVAILABLE);
             return true;
