@@ -5,6 +5,7 @@ import storeapp.domain.Customer;
 import storeapp.domain.Product;
 import storeapp.infraestructure.out.db.DataBaseConnection;
 import storeapp.infraestructure.out.mapper.ProductRowMapper;
+import storeapp.services.port.CategoryPersistencePort;
 import storeapp.services.port.ProductPersistencePort;
 
 import java.sql.*;
@@ -24,13 +25,13 @@ public class ProductRepositoryDB implements ProductPersistencePort {
         }
 
         @Override
-        public Product saveProduct(Product product, Category category) {
+        public Product saveProduct(Product product) {
             String sql = """
                 INSERT INTO product (description, price, stock, state, category)
                 VALUES (?, ?, ?, ?, ?)
                 """;
             try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-                setProductParams(ps, product, category);
+                setProductParams(ps, product);
                 ps.executeUpdate();
 
                 ResultSet keys = ps.getGeneratedKeys();
@@ -85,7 +86,7 @@ public class ProductRepositoryDB implements ProductPersistencePort {
                 WHERE id_product=?
                 """;
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
-                setProductParams(ps, product, category);
+                setProductParams(ps, product);
                 ps.executeUpdate();
             } catch (SQLException e) {
                 throw new RuntimeException("Error al actualizar producto: " + e.getMessage(), e);
@@ -106,11 +107,11 @@ public class ProductRepositoryDB implements ProductPersistencePort {
         }
 
         // ── helper privado para no repetir los setters en save y update ──
-        private void setProductParams(PreparedStatement ps, Product product, Category category) throws SQLException {
+        private void setProductParams(PreparedStatement ps, Product product) throws SQLException {
             ps.setString(1, product.getDescription());
             ps.setDouble(2, product.getPrice());
             ps.setInt(3, product.getStock());
             ps.setBoolean(4, product.isState());
-            ps.setInt(5, category.getIdCategory());
+            ps.setInt(5, product.getCategory().getIdCategory());
         }
 }

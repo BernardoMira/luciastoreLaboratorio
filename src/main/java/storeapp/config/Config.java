@@ -1,28 +1,17 @@
 package storeapp.config;
 
 import storeapp.domain.Admin;
-import storeapp.infraestructure.in.view.CategoryView;
-import storeapp.infraestructure.in.view.ProductView;
-import storeapp.infraestructure.out.adapters.CategoryRepositoryDB;
-import storeapp.infraestructure.out.adapters.CustomerRepository;
-import storeapp.infraestructure.out.adapters.CustomerRepositoryDB;
-import storeapp.infraestructure.out.adapters.ProductRepositoryDB;
+import storeapp.infraestructure.in.view.*;
+import storeapp.infraestructure.out.adapters.*;
 import storeapp.infraestructure.out.db.DataBaseConnection;
-import storeapp.infraestructure.out.mapper.CategoryRowMapper;
-import storeapp.infraestructure.out.mapper.CustomerRowMapper;
-import storeapp.infraestructure.out.mapper.ProductRowMapper;
-import storeapp.infraestructure.out.mapper.RowMapper;
-import storeapp.services.AdminServiceImpl;
-import storeapp.services.CategoryInputAdapter;
-import storeapp.services.ProductInputAdapter;
+import storeapp.infraestructure.out.mapper.*;
+import storeapp.services.*;
 import storeapp.services.input.*;
-import storeapp.services.CustumerServiceImpl;
 import storeapp.services.port.CategoryPersistencePort;
 import storeapp.services.port.CustomerPersistencePort;
+import storeapp.services.port.OrderPersistencePort;
 import storeapp.services.port.ProductPersistencePort;
 import storeapp.userinterface.MenuApp;
-import storeapp.infraestructure.in.view.AdminView;
-import storeapp.infraestructure.in.view.CustomerView;
 
 import java.sql.Connection;
 
@@ -39,17 +28,21 @@ public class Config {
         Admin admin = new Admin();
 
         Connection connection = DataBaseConnection.getInstance().getConnection();
+
         CustomerRowMapper rowMapperCustomer = new CustomerRowMapper();
         CategoryRowMapper rowMapperCategory = new CategoryRowMapper();
         ProductRowMapper rowMapperProduct = new ProductRowMapper();
-
-        ProductPersistencePort productPersistencePort = new ProductRepositoryDB(connection, rowMapperProduct);
-        ProductUseCase productService = new ProductInputAdapter(productPersistencePort);
-        ProductView productView = new ProductView(productService);
+        OrderRowMapper rowMapperOrder = new OrderRowMapper();
 
         CategoryPersistencePort categoryRepositoryDB = new CategoryRepositoryDB(connection, rowMapperCategory);
         CategoryUseCase categoryService = new CategoryInputAdapter(categoryRepositoryDB);
         CategoryView categoryView = new CategoryView(categoryService);
+
+
+        ProductPersistencePort productPersistencePort = new ProductRepositoryDB(connection, rowMapperProduct);
+        ProductUseCase productService = new ProductInputAdapter(productPersistencePort, categoryRepositoryDB);
+        ProductView productView = new ProductView(productService);
+
 
         CustomerPersistencePort customerRepository = new CustomerRepository();
         CustomerPersistencePort customerRepositoryDB = new CustomerRepositoryDB(connection, rowMapperCustomer);
@@ -60,8 +53,12 @@ public class Config {
         AdminService adminServiceImpl = new AdminServiceImpl(admin,customerRepositoryDB);
         AdminView adminView = new AdminView(adminServiceImpl, admin,custumerAdminService);
 
+        OrderPersistencePort orderRepositoryDB = new OrderRepositoryDB(connection, rowMapperOrder);
+        OrderUseCase orderService = new OrderInputAdapter(orderRepositoryDB,customerRepositoryDB, productPersistencePort);
+        OrderView orderView = new OrderView(orderService);
 
-        return new MenuApp(customerView, adminView,categoryView, productView);
+
+        return new MenuApp(customerView, adminView,categoryView, productView, orderView);
 
     }
 

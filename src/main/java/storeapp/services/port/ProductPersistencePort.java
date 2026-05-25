@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface ProductPersistencePort {
 
-    Product saveProduct(Product product, Category category);
+    Product saveProduct(Product product);
     Optional<Product> findProductById(int id);
     List<Product> findAllProducts();
     Product updateProduct(Product product, Category category);

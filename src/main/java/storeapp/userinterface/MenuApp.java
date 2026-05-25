@@ -1,10 +1,9 @@
 package storeapp.userinterface;
 
 import storeapp.infraestructure.in.utils.FormValidator;
-import storeapp.infraestructure.in.view.AdminView;
-import storeapp.infraestructure.in.view.CategoryView;
-import storeapp.infraestructure.in.view.CustomerView;
-import storeapp.infraestructure.in.view.ProductView;
+import storeapp.infraestructure.in.view.*;
+
+import java.sql.SQLOutput;
 
 public class MenuApp {
 
@@ -14,12 +13,14 @@ public class MenuApp {
     private final AdminView adminView;
     private final CategoryView categoryView;
     private final ProductView productView;
+    private final OrderView orderView;
 
-    public MenuApp(CustomerView customerView, AdminView adminView, CategoryView categoryView,ProductView productView) {
+    public MenuApp(CustomerView customerView, AdminView adminView, CategoryView categoryView,ProductView productView, OrderView orderView) {
         this.customerView = customerView;
         this.adminView = adminView;
         this.categoryView = categoryView;
         this.productView = productView;
+        this.orderView = orderView;
     }
 
     public void showMainMenu(){
@@ -115,13 +116,14 @@ public class MenuApp {
 
         while (true){
             System.out.println("Menu Administrador");
-            System.out.println("1. Gestionar Productos 2. Gestionar Categorias 3. Gestionar Clientes 4. Salir");
+            System.out.println("1. Gestionar Productos 2. Gestionar Categorias 3. Gestionar Clientes 4. Gestionar Ordenes 5. Salir");
             int option = FormValidator.validateInt("Seleccione una opcion");
 
 
             switch (option){
                 case 1:
                     System.out.println("Gestionar Productos");
+                    showMenuProducts();
                     break;
                 case 2:
                     System.out.println("Gestionar Categorias");
@@ -133,6 +135,10 @@ public class MenuApp {
                     customerMenuAdmin();
                     break;
                 case 4:
+                    System.out.println("Gestionar Ordenes");
+                    showMenuOrders();
+                    break;
+                case 5:
                     System.out.println("Saliendo del menu de administrador");
                     return;
                 default:
@@ -157,8 +163,7 @@ public class MenuApp {
                     break;
                 case 2:
                     System.out.println("Ver mi  perfil");
-                    int id = FormValidator.validateInt("Ingrese su id para ver su perfil");
-                    customerView.getCustumerById(id);
+                    customerView.getCustumerById();
                     break;
                 case 3:
                     System.out.println("Modificar mi perfil");
@@ -252,6 +257,45 @@ public class MenuApp {
     }
 
 
+    public void showMenuOrders(){
+
+        System.out.println("Menu Ordenes");
+        while (true) {
+            System.out.println("1. Crear Orden 2. Ver Orden por id 3. Modificar Orden 4. Ver ordenes 5. Eliminar orden 6. Volver al menu anterior");
+            int option = FormValidator.validateInt("Seleccione una opcion");
+
+            switch (option) {
+                case 1:
+                    System.out.println("Crear Orden");
+                    orderView.createOrder();
+                    break;
+                case 2:
+                    System.out.println("Ver Orden por id");
+                    orderView.getOrderById();
+                    break;
+                case 3:
+                    System.out.println("Modificar orden");
+                    //categoryView.updateCategory();
+                    break;
+                case 4:
+                    System.out.println("Ver ordenes");
+                    //categoryView.getAllCategories();
+                    break;
+                case 5:
+                    System.out.println("Eliminar orden");
+                    int idDelete = FormValidator.validateInt("Ingrese el id de la categoria a eliminar");
+                    //categoryView.deleteCategoryById(idDelete);
+                    break;
+                case 6:
+                    System.out.println("Volviendo al menu anterior");
+                    return;
+                default:
+                    System.out.println("Opcion no valida, por favor seleccione una opcion valida");
+            }
+        }
+    }
+
+
     public void customerMenuAdmin(){
 
         System.out.println("Menu Cliente");
@@ -269,8 +313,7 @@ public class MenuApp {
                 case 2:
                     System.out.println("Ver perfil por id");
                     System.out.println("Buscar perfil");
-                    int id = FormValidator.validateInt("Ingrese el id del  perfil a buscar");
-                    customerView.getCustumerById(id);
+                    customerView.getCustumerById();
                     break;
                 case 3:
                     System.out.println("Modificar perfil");

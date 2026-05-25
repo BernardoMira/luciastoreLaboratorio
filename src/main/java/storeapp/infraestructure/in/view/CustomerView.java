@@ -31,10 +31,10 @@ public class CustomerView {
 
     }
 
-    public void getCustumerById(int id) {
+    public void getCustumerById() {
         System.out.println("Buscar cliente por id");
-
-        Customer customer = customerService.getCustomerById(id).orElseThrow();
+        int id_customer = FormValidator.validateInt("Ingrese el Id a Buscar");
+        Customer customer = customerService.getCustomerById(id_customer).orElseThrow();
         System.out.println("Cliente encontrado: " + customer.getName() + " " + customer.getLastName());
     }
 
@@ -43,6 +43,9 @@ public class CustomerView {
 
         customerService.updateCustomer(FormValidator.validateInt("Ingrese id cliente: "));
     }
+
+
+
 
 
 }

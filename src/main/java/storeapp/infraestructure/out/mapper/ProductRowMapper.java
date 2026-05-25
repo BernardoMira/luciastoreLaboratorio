@@ -18,7 +18,7 @@ public class ProductRowMapper implements  RowMapper{
         product.setState(rs.getBoolean("state"));
 
         Category category = new Category();
-        category.setIdCategory(rs.getInt("id_category"));
+        category.setIdCategory(rs.getInt("category"));
         product.setCategory(category);
 
         return product;

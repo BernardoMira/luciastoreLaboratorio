@@ -3,6 +3,7 @@ package storeapp.services;
 import storeapp.domain.Category;
 import storeapp.domain.Product;
 import storeapp.services.input.ProductUseCase;
+import storeapp.services.port.CategoryPersistencePort;
 import storeapp.services.port.ProductPersistencePort;
 
 import java.util.List;
@@ -12,20 +13,25 @@ public class ProductInputAdapter implements ProductUseCase {
 
 
     private final ProductPersistencePort productPersistencePort;
+    private final CategoryPersistencePort  categoryPersistencePort;
 
-    public ProductInputAdapter(ProductPersistencePort productPersistencePort) {
+    public ProductInputAdapter(ProductPersistencePort productPersistencePort, CategoryPersistencePort categoryPersistencePort) {
         this.productPersistencePort = productPersistencePort;
+        this.categoryPersistencePort = categoryPersistencePort;
     }
 
     @Override
     public Product createProduct(String description, double price, int stock, boolean state,  int categoryId) {
 
-        Category category = new Category();
+        Category category = categoryPersistencePort
+                .findCategoryById(categoryId)
+                .orElseThrow();
+
         category.setIdCategory(categoryId);
 
         Product product = new Product(description, price, stock, state, category);
 
-        return productPersistencePort.saveProduct(product, category);
+        return productPersistencePort.saveProduct(product);
     }
 
     @Override
