@@ -1,6 +1,5 @@
-package storeapp.services;
+package storeapp.infraestructure.in.view.helpers;
 
-import org.w3c.dom.ls.LSOutput;
 import storeapp.domain.enums.CustomerState;
 import storeapp.infraestructure.in.utils.FormValidator;
 

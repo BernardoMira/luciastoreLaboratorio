@@ -1,8 +1,7 @@
 package storeapp.infraestructure.in.view;
 
 import storeapp.infraestructure.in.utils.FormValidator;
-import storeapp.services.ProductInputAdapter;
-import storeapp.services.ProductStateSelector;
+import storeapp.infraestructure.in.view.helpers.ProductStateSelector;
 import storeapp.services.input.ProductUseCase;
 
 public class ProductView {

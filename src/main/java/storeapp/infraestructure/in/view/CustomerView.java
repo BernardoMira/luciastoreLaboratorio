@@ -1,11 +1,9 @@
 package storeapp.infraestructure.in.view;
 
 import storeapp.domain.Customer;
-import storeapp.services.CustomerTypeSelector;
+import storeapp.infraestructure.in.view.helpers.CustomerTypeSelector;
 import storeapp.services.input.CustumerService;
 import storeapp.infraestructure.in.utils.FormValidator;
-
-import java.util.List;
 
 public class CustomerView {
 

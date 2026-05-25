@@ -1,4 +1,4 @@
-package storeapp.services;
+package storeapp.infraestructure.in.view.helpers;
 
 import storeapp.domain.enums.ProductState;
 import storeapp.infraestructure.in.utils.FormValidator;

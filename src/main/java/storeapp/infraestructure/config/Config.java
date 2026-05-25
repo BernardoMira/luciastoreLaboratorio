@@ -1,4 +1,4 @@
-package storeapp.config;
+package storeapp.infraestructure.config;
 
 import storeapp.domain.Admin;
 import storeapp.infraestructure.in.view.*;

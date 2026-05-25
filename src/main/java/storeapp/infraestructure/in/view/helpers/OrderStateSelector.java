@@ -1,6 +1,5 @@
-package storeapp.services;
+package storeapp.infraestructure.in.view.helpers;
 
-import storeapp.domain.enums.CategoryStateEnum;
 import storeapp.domain.enums.OrderStatusEnum;
 import storeapp.infraestructure.in.utils.FormValidator;
 

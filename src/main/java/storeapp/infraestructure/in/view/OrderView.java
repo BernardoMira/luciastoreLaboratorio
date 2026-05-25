@@ -4,8 +4,8 @@ import storeapp.domain.Order;
 import storeapp.domain.validations.ValidationRules;
 import storeapp.infraestructure.in.utils.FormValidator;
 import storeapp.infraestructure.in.utils.date.DateValidator;
-import storeapp.services.OrderPaidMethodSelector;
-import storeapp.services.OrderStateSelector;
+import storeapp.infraestructure.in.view.helpers.OrderPaidMethodSelector;
+import storeapp.infraestructure.in.view.helpers.OrderStateSelector;
 import storeapp.services.input.OrderUseCase;
 import storeapp.infraestructure.in.utils.*;
 

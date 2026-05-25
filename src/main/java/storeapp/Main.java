@@ -1,6 +1,6 @@
 package storeapp;
 
-import storeapp.config.Config;
+import storeapp.infraestructure.config.Config;
 import storeapp.userinterface.MenuApp;
 
 public class Main {
